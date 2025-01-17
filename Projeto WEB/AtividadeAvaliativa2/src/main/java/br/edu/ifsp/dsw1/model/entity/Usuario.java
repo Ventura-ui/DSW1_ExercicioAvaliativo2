@@ -8,7 +8,6 @@ public class Usuario {
 	
 	private String login;
 	private String senha;
-	private List<Pedido> pedidos = new LinkedList<Pedido>();
 	
 	public Usuario() {}
 
@@ -16,7 +15,6 @@ public class Usuario {
 		super();
 		this.login = login;
 		this.senha = senha;
-		pedidos = new LinkedList<Pedido>();
 	}
 
 	public String getLogin() {
@@ -34,19 +32,8 @@ public class Usuario {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-
-	public List<Pedido> getPedidos() {
-		return new ArrayList<Pedido>(pedidos);
-	}
-
-	public void clearPedidos() {
-		pedidos.clear();
-	}
 	
-	public void addPedido(Pedido pedido) {
-		pedidos.add(new Pedido(pedido.getId(), pedido.getNomeCliente(), pedido.getEnderecoEntrega(), pedido.getValor(), pedido.getDescricao()));
-	}
-	
+	// faz a autenticação do usuário, verificando se o email e a senha coincidem
 	public static boolean autenticate(Usuario userFromSystem, String login, String senha) {
 		if (userFromSystem != null) {
 			return senha.equals(userFromSystem.getSenha()) && login.equals(userFromSystem.getLogin());

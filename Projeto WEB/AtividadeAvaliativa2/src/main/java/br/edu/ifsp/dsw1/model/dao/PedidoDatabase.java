@@ -11,13 +11,14 @@ import br.edu.ifsp.dsw1.model.entity.Usuario;
 
 public class PedidoDatabase implements PedidoDao{
 	
-	private static final String INSERT = "INSERT INTO pedidos (idpedidos, nomeCliente, enderecoEntrega, valor, descricao) VALUES (?, ?, ?, ?, ?)";
+	private static final String INSERT = "INSERT INTO pedidos (nomeCliente, enderecoEntrega, valor, descricao) VALUES (?, ?, ?, ?)";
 	private static final String SELECT_BY_ID = "SELECT * FROM pedidos WHERE idpedidos = ?";
 	private static final String SELECT_BY_CLIENT_NAME = "SELECT * FROM pedidos WHERE nomeCliente LIKE ? ORDER BY nomeCliente";
-	private static final String SELECT_ALL = "SELECT * FROM pedidos ORDER BY nomeCliente";
-	private static final String UPDATE = "UPDATE pedidos SET idpedidos = ?, nomeCliente = ?, enderecoEntrega = ?, valor = ?, descricao = ? WHERE idpedidos = ?";
+	private static final String SELECT_ALL = "SELECT * FROM pedidos ORDER BY idpedidos";
+	private static final String UPDATE = "UPDATE pedidos SET nomeCliente = ?, enderecoEntrega = ?, valor = ?, descricao = ? WHERE idpedidos = ?";
 	private static final String DELETE = "DELETE FROM pedidos WHERE idpedidos = ?";
 	
+	// Insert de um pedido na tabela pedidos
 	@Override
 	public boolean create(Pedido pedido) {
 		if (pedido != null) {
@@ -25,11 +26,10 @@ public class PedidoDatabase implements PedidoDao{
 			try ( var connection = UserConnection.getConnection();
 				  var preparedStatement = connection.prepareStatement(INSERT)) {
 
-				preparedStatement.setInt(1, pedido.getId());
-				preparedStatement.setString(2, pedido.getNomeCliente());
-				preparedStatement.setString(3, pedido.getEnderecoEntrega());
-				preparedStatement.setDouble(4, pedido.getValor());
-				preparedStatement.setString(5, pedido.getDescricao());
+				preparedStatement.setString(1, pedido.getNomeCliente());
+				preparedStatement.setString(2, pedido.getEnderecoEntrega());
+				preparedStatement.setDouble(3, pedido.getValor());
+				preparedStatement.setString(4, pedido.getDescricao());
 				rows = preparedStatement.executeUpdate();
 				
 
@@ -42,6 +42,7 @@ public class PedidoDatabase implements PedidoDao{
 		return false;
 	}
 	
+	// busca por um pedido através de seu ID único
 	@Override
 	public Pedido retrieve(int id) {
 		Pedido pedido = null;
@@ -67,6 +68,7 @@ public class PedidoDatabase implements PedidoDao{
 		return pedido;
 	}
 	
+	// busca por todos os pedidos cadastrados
 	@Override
 	public List<Pedido> retrieve() {
 		List<Pedido> pedidos = new LinkedList<Pedido>();
@@ -89,6 +91,7 @@ public class PedidoDatabase implements PedidoDao{
 		return pedidos;
 	}
 	
+	// busca por todos os pedidos que tiverem a String nomeCliente no nome de seu cliente
 	@Override
 	public List<Pedido> findByClientName(String nomeCliente) {
 		List<Pedido> pedidos = new LinkedList<Pedido>();
@@ -114,6 +117,7 @@ public class PedidoDatabase implements PedidoDao{
 		return pedidos;
 	}
 	
+	// modificar os atributos de um pedido, menos o seu id
 	@Override
 	public boolean update(Pedido updatedpedido, int oldId) {
 		if(updatedpedido != null && oldId > 0) {
@@ -121,13 +125,13 @@ public class PedidoDatabase implements PedidoDao{
 			try(var connection = UserConnection.getConnection();
 					var stat = connection.prepareStatement(UPDATE)) {
 				
-				stat.setInt(1, updatedpedido.getId());
-				stat.setString(2, updatedpedido.getNomeCliente());
-				stat.setString(3, updatedpedido.getEnderecoEntrega());
-				stat.setDouble(4, updatedpedido.getValor());
-				stat.setString(5, updatedpedido.getDescricao());
-				stat.setInt(6, oldId);
+				stat.setString(1, updatedpedido.getNomeCliente());
+				stat.setString(2, updatedpedido.getEnderecoEntrega());
+				stat.setDouble(3, updatedpedido.getValor());
+				stat.setString(4, updatedpedido.getDescricao());
+				stat.setInt(5, oldId);
 				
+				rows = stat.executeUpdate();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -135,6 +139,8 @@ public class PedidoDatabase implements PedidoDao{
 		}
 		return false;
 	}
+	
+	// deletar um pedido do banco de dados
 	@Override
 	public boolean delete(Pedido pedido) {
 		if (pedido != null) {

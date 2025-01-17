@@ -15,7 +15,6 @@ public class CadastroPedidoCommand implements Command{
 	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		int id = Integer.parseInt(request.getParameter("id"));
 		String nomeCliente = request.getParameter("nomeCliente");
 		String endereco = request.getParameter("endereco");
 		double valor = Double.parseDouble(request.getParameter("valor"));
@@ -25,7 +24,7 @@ public class CadastroPedidoCommand implements Command{
 		
 		var user = (Usuario) sessao.getAttribute("user");
 		
-		Pedido pedido = new Pedido(id, nomeCliente, endereco, valor, descricao);
+		Pedido pedido = new Pedido(nomeCliente, endereco, valor, descricao);
 		
 		var dao = new PedidosFactory().factory();
 		

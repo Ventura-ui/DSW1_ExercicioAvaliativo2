@@ -14,6 +14,7 @@
 	<br><br>
 	<hr><br><br>
 	
+	<!-- Resgatando uma lista de pedidos -->
 	<%
 		List<Pedido> pedidos = (List<Pedido>) request.getAttribute("pedidos");
 	%>
@@ -26,6 +27,7 @@
 		}
 	%>
 	
+	<!-- mensagem caso algum pedido seja atualizado -->
 	<%
 		String messageUpdated = (String) request.getAttribute("messageUpdated");
 		if(messageUpdated != null){
@@ -36,6 +38,7 @@
 	
 	<br><br>
 	
+	<!-- fazer a pesquisa de um pedido através do nome de seu cliente -->
 	<form action="logged.do?action=pesquisa" method="post">
 		<input type="text" name="nomeCliente" id="nomeCliente" placeholder="Pesquise pelo nome do cliente">
 		<button type="submit">Pesquisar</button>
@@ -43,7 +46,7 @@
 	
 	<br><br><br>
 	
-	
+	<!-- tabela de pedidos com as suas informações os botões de editar e deletar um pedido -->
 	<table border="1">
 		<thead>
 			<tr>
@@ -74,7 +77,8 @@
 				<td><a href="logged.do?action=delete&id=<%=pedido.getId()%>">Deletar pedido</a></td>
 			</tr>
 			
-			<%} %>
+			<%i++;
+			} %>
 		</tbody>
 	</table>
 	

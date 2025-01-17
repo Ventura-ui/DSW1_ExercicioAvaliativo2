@@ -15,8 +15,6 @@ public class UpdateCommand implements Command{
 			throws ServletException, IOException {
 		
 		var idPedido = Integer.parseInt(request.getParameter("idPedido"));
-		
-		int id = Integer.parseInt(request.getParameter("id"));
 		String nomeCliente = request.getParameter("nomeCliente");
 		String endereco = request.getParameter("endereco");
 		double valor = Double.parseDouble(request.getParameter("valor"));
@@ -26,7 +24,7 @@ public class UpdateCommand implements Command{
 		
 		Pedido pedidoAntigo = dao.retrieve(idPedido);
 		
-		Pedido pedido = new Pedido(id, nomeCliente, endereco, valor, descricao);
+		Pedido pedido = new Pedido(nomeCliente, endereco, valor, descricao);
 		
 		boolean updated = dao.update(pedido, idPedido);
 		

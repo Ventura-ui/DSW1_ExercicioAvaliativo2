@@ -9,6 +9,7 @@ import javax.sql.DataSource;
 
 public class UserConnection {
 	
+	// faz a conexão com o banco de dados usando uma pool de conexões
 	public UserConnection() {}
 	
 	private static final String RESOURCE = "java:/comp/env/jdbc/mysql";

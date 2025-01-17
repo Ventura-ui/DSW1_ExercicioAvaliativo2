@@ -10,9 +10,8 @@ public class Pedido {
 	
 	public Pedido() {}
 	
-	public Pedido(int id, String nomeCliente, String enderecoEntrega, double valor, String descricao) {
+	public Pedido(String nomeCliente, String enderecoEntrega, double valor, String descricao) {
 		super();
-		this.id = id;
 		this.nomeCliente = nomeCliente;
 		this.enderecoEntrega = enderecoEntrega;
 		this.valor = valor;

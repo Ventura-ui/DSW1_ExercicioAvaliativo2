@@ -9,7 +9,8 @@ public class UsuarioDatabase implements UsuarioDao{
 	
 	private static final String INSERT = "INSERT INTO usuario (login, senha) VALUES (?, ?)";
 	private static final String SELECT_BY_LOGIN = "SELECT * FROM usuario WHERE login = ?";
-
+	
+	// executa um insert na tabela usuario
 	@Override
 	public boolean insert(Usuario usuario) {
 		if (usuario != null) {
@@ -29,7 +30,8 @@ public class UsuarioDatabase implements UsuarioDao{
 		}
 		return false;
 	}
-
+	
+	// procura o usuario através de seu login
 	@Override
 	public Usuario findByLogin(String login) {
 		Usuario usuario = null;

@@ -24,9 +24,6 @@
 	<br><br>
 	
 	<form action="logged.do?action=cadastroPedido" method="post">
-		<label for="id">ID</label>
-		<input type="number" id="id" name="id" required="required" placeholder="Digite o ID do pedido"><br><br>
-		
 		<label for="nomeCliente">Nome do cliente</label>
 		<input type="text" id="nomeCliente" name="nomeCliente" required="required" placeholder="Digite o nome do cliente"><br><br>
 		
