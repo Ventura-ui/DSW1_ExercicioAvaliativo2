@@ -7,8 +7,8 @@ CREATE TABLE usuario(
     senha VARCHAR(45) NOT NULL
 );
 
-CREATE TABLE pedidos(
-	idpedidos INT PRIMARY KEY NOT NULL,
+CREATE TABLE pedidos (
+    idpedidos INT AUTO_INCREMENT PRIMARY KEY,
     nomeCliente VARCHAR(145) NOT NULL,
     enderecoEntrega VARCHAR(200) NOT NULL,
     valor DECIMAL(10,2) NOT NULL,
@@ -20,3 +20,5 @@ INSERT INTO usuario (login, senha) VALUES ('admin', '123');
 SELECT * FROM pedidos;
 
 SELECT * FROM usuario;
+
+
